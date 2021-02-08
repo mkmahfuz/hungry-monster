@@ -28,7 +28,6 @@ function displayMeal(data) {
 }
 
 function displayMealData(dataArray) {
-    //console.log(dataArray);    
     //clear prev data    
      while (searchOutput.hasChildNodes()) {
         searchOutput.removeChild(searchOutput.firstChild);
@@ -43,8 +42,6 @@ function displayMealData(dataArray) {
   searchOutput.innerHTML = insidesearchOutput;
     
     dataArray.forEach(element => {
-        //console.log(element.strMeal);
-        // console.log(element.strMealThumb);
         const mealDiv = document.createElement("div");
         mealDiv.className = "meal-container";
         mealDiv.innerHTML = `<div onclick="mealDetails(${element.idMeal})" ><div class="meal-image"><img src=${element.strMealThumb}></div><div class="meal-name">${element.strMeal}</div></div>`;
