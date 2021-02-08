@@ -2,12 +2,9 @@
 const searchInput = document.getElementById("search-input");
 const searchSubmit = document.getElementById('search-submit');
 const searchOutput = document.getElementById("search-output");
-//const mealDetailClick = document.getElementById('meal-details');
-//const resultError = document.getElementById('result-error');
+
 searchSubmit.addEventListener("click", function () { fetchData(searchInput) });
 
-
-//mealDetailClick.addEventListener("click", function () { mealDetails(mealId) });
 //fecthing meal data
 const fetchData = (searchInput) => {
     fetch(`https://www.themealdb.com/api/json/v1/1/search.php?s=${searchInput.value}`)
@@ -15,18 +12,9 @@ const fetchData = (searchInput) => {
         .then(data => displayMeal(data))
         .catch(error => displayError(error))
 }
-//to do later clear previous search data
-// function clearPrevData(){
-//     // const emptySpan = document.createElement('span');
-//     const mealResultDiv = document.getElementById("search-result");
-//     const mealOutputDiv = document.getElementById("search-output");
-//     mealOutputDiv.removeChild(mealResultDiv);
-// }
 
 function displayError(error) {
-    console.log(error);
-    console.log("No data found");
-    
+    //console.log("No data found");    
     searchOutput.innerHTML = `<h3>Sorry no data found</h3>`;
 }
 
@@ -42,10 +30,7 @@ function displayMeal(data) {
 function displayMealData(dataArray) {
     //console.log(dataArray);    
     //clear prev data    
-    //const searchOutput = document.getElementById("search-output");
-    // const searchResultDiv = document.createElement("div");
-    // searchResultDiv.innerHTML = `<p>Hello</p>`
-    while (searchOutput.hasChildNodes()) {
+     while (searchOutput.hasChildNodes()) {
         searchOutput.removeChild(searchOutput.firstChild);
     }
     //create divs
@@ -56,31 +41,21 @@ function displayMealData(dataArray) {
     <div id="result-error"></div>
   `
   searchOutput.innerHTML = insidesearchOutput;
-    // searchHeader.removeChild();
+    
     dataArray.forEach(element => {
         //console.log(element.strMeal);
         // console.log(element.strMealThumb);
-
         const mealDiv = document.createElement("div");
         mealDiv.className = "meal-container";
         mealDiv.innerHTML = `<div onclick="mealDetails(${element.idMeal})" ><div class="meal-image"><img src=${element.strMealThumb}></div><div class="meal-name">${element.strMeal}</div></div>`;
         const mealResult = document.getElementById("search-result");
-        mealResult.appendChild(mealDiv);
-        // mealDiv.addEventListener("click",mealDetails(element.idMeal)); 
-
+        mealResult.appendChild(mealDiv);        
     });
 
 }
 
-// const searchResultDiv = document.getElementById("meal-container");
-// searchResultDiv.addEventListener("click",function(any){
-//     console.log(any.target);
-// })
-//const mealId = 52772;
-
 const mealDetails = (mealId) => {
-    console.log(mealId);
-    // fetch(`https://www.themealdb.com/api/json/v1/1/search.php?s=${searchInput.value}`)
+    //console.log(mealId);
     fetch(`https://www.themealdb.com/api/json/v1/1/lookup.php?i=${mealId}`)
         .then(response => response.json())
         .then(data => displayMealDetails(data))
@@ -88,17 +63,11 @@ const mealDetails = (mealId) => {
 }
 
 function displayMealDetails(data) {
-    console.log(data.meals);
-    // const ingredientsArray = data.meals;
-    // ingredientsArray.forEach(element=>console.log(element));
+    //console.log(data.meals);
     const ingredientObject = data.meals[0];
     for (ingredient in ingredientObject) {
         console.log(ingredient);
     }
-    console.log(data.meals[0].strIngredient1)
-    console.log(data.meals[0].strIngredient2)
-    console.log(data.meals[0].strIngredient3)
-
     const mealDetailsDiv = document.getElementById("meal-details");
     mealDetailsDiv.innerHTML = `
     <div id="meal-ingredients-list">
@@ -115,10 +84,8 @@ function displayMealDetails(data) {
     </ul>
     </div>
     `
-
 }
 
-//<img src="${ingredientObject.strMealThumb}>
 function showMealDeatails(mealid) {
     const mealDetailsDiv = document.createElement("div");
     mealDiv.className = "meal-container";
